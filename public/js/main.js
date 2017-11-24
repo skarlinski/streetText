@@ -1,10 +1,31 @@
 var map = L.map('map').setView([31.771959,35.217018], 8);
+
+// instanciate new modal
+var modal = new tingle.modal({
+    closeMethods: ['overlay', 'button', 'escape'],
+    onOpen: function() {
+        console.log('modal open');
+    },
+    onClose: function() {
+        console.log('modal closed');
+    },
+    beforeClose: function() {
+        // here's goes some logic
+        // e.g. save content before closing the modal
+        return true; // close the modal
+      return false; // nothing happens
+    }
+});
+
+
+
 var posterData = getData();
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-posterData.sort(function(a,b){
-  a.date
+posterData = posterData.sort(function(a,b){
+  return (new Date(a.date) >= new Date(b.date))?1:-1
+  //return a.date >= b.date?1:-1
 })
 function searchResults(str,sortAsc){
     
@@ -77,6 +98,10 @@ function getWordsAround(str,text){
   return output;
 
 }
+function openModal(e){
+  //modal.setContent('<img src = "'+e.src+'"/>');
+  //modal.open()
+}
 function addMarker(item){
   if(item.marker){return};
   var id = item['id'];
@@ -84,9 +109,11 @@ function addMarker(item){
 //    iconUrl:'/images/sifria.png',
 //     iconSize:[30, 30],
  // })
-
+  var source = item.source?item.source:'';
   item.marker =  L.marker([item.lat,item.long]/*,{icon:leafIcon}*/).addTo(map);
-  item.marker.bindPopup("<img src = '/images/"+item.id + ".jpg' style = 'width:400px'/>",{maxWidth : 560});
+  item.marker.bindPopup("<img src = '/images/"+item.id + ".jpg' onclick = 'openModal(this)' style = 'width:400px'/>" +
+    "<p>"+source+"</p>"
+    ,{maxWidth : 560});
   return item.marker;
 
 }
@@ -105,7 +132,6 @@ function initSearch(){
   document.getElementById('poster_img').src = '/images/'+data.id + ".jpg"
 
 }*/
-
 
 initSearch();
 searchResults();
