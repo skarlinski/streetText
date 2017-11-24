@@ -5,6 +5,8 @@ html {
     font-size: 1em;
     line-height: 1.4;
 }
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0;}
 
 ::-moz-selection {
     background: #b3d4fc;
@@ -200,3 +202,13 @@ textarea {
         page-break-after: avoid;
     }
 }
+ul{
+    padding:0px;
+}
+.res_li{
+    padding-right:5%;
+}
+
+#map { height: 100%; width: 80%;}
+#search_results_cont{ height:100%; overflow: auto; }
+#search_results_cont input{font-size:22px;margin:30px 15px 0px 0px}
