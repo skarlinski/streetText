@@ -97,7 +97,7 @@ function addMarker(item){
   var rnd1 = Math.random() /10
   var rnd2 = Math.random() /10
   item.marker =  L.marker([item.lat+rnd1,item.long+rnd2]/*,{icon:leafIcon}*/).addTo(map);
-  item.marker.bindPopup("<img src = 'public/images/"+item.id + ".jpg' onclick = 'openModal(this)' style = 'width:450px'/>" +
+  item.marker.bindPopup("<img src = '/streetText/public/images/"+item.id + ".jpg' onclick = 'openModal(this)' style = 'width:450px'/>" +
     "<p>"+source+"</p>"
     ,{maxWidth : 560});
   return item.marker;
