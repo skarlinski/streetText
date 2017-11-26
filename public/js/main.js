@@ -1,21 +1,5 @@
 var map = L.map('map').setView([31.771959,35.217018], 8);
 
-// instanciate new modal
-var modal = new tingle.modal({
-    closeMethods: ['overlay', 'button', 'escape'],
-    onOpen: function() {
-        console.log('modal open');
-    },
-    onClose: function() {
-        console.log('modal closed');
-    },
-    beforeClose: function() {
-        // here's goes some logic
-        // e.g. save content before closing the modal
-        return true; // close the modal
-      return false; // nothing happens
-    }
-});
 
 
 
@@ -24,7 +8,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 posterData = posterData.sort(function(a,b){
-  return (new Date(a.date) >= new Date(b.date))?1:-1
+  return a.date >= b.date?1:-1
   //return a.date >= b.date?1:-1
 })
 function searchResults(str,sortAsc){
